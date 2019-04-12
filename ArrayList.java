@@ -15,6 +15,15 @@ public class ArrayList {
 			return null;
 		return arr[0];
 	}
+	
+	public Student get(Student s){
+		for(int i = 0; i < n + 1; i++){
+			if(arr[i].equals(s)){
+				return s;
+			}
+		}
+		return null;
+	}
 
 	public int getSize(){ // returns the size of the array
 		return n + 1;
