@@ -1,3 +1,4 @@
+import DoublyLinkedList.Node;
 
 public class DoublyLinkedList {
 	 private Node head;
@@ -41,5 +42,15 @@ public class DoublyLinkedList {
 	            temp = temp.next;
 	        }
 	    }
-
+	 
+	 public boolean isPresent(String key) {
+	        Node temp = head;
+	        while (temp != null) {
+	            if (temp.stud.getName() == key)
+	                //return true;
+	            	System.out.print(temp.stud+" ");
+	            temp = temp.next;
+	        }
+	        return false;
+	 }
 }
