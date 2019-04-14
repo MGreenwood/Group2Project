@@ -105,7 +105,7 @@ public class ArrayList {
 
 	public static void main(String[] args){
 
-		ArrayList AA = new ArrayList();
+		/*ArrayList AA = new ArrayList();
 		Student s = new Student("s", 1+"", 4);
 		Student s1 = new Student("s1", 2+"", 4);
 		Student s2 = new Student("s2", 3+"", 3.5);
@@ -142,7 +142,7 @@ public class ArrayList {
 
 		System.out.println("\nSize of AA: " + AA.getSize());
 		System.out.println("\nFirst: " + AA.getFirst());
-		System.out.println("\nLast: " + AA.getLast());
+		System.out.println("\nLast: " + AA.getLast());*/
 
 	}
 }
