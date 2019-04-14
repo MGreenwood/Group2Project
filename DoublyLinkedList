@@ -1,11 +1,9 @@
-import DoublyLinkedList.Node;
-
 public class DoublyLinkedList {
 	 private Node head;
 	 private Node tail;
 	 private int size = 0;
 
-	 private static class Node {
+	 public class Node {
 		 private Student stud;
 	     private Node next;
 	     private Node prev;
@@ -47,10 +45,9 @@ public class DoublyLinkedList {
 	        Node temp = head;
 	        while (temp != null) {
 	            if (temp.stud.getName() == key)
-	                //return true;
-	            	System.out.print(temp.stud+" ");
+	            	return temp.stud;
 	            temp = temp.next;
 	        }
-	        return false;
+	        return null;
 	 }
 }
