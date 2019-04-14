@@ -30,29 +30,89 @@ also query each structure for the same three lists of users without output.
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Random;
 
 public class Main
 {
-	static int toGenerate = 1000;
+	static int MAX_STUDENTS = 1000;
+	static int toGenerate = 250; // CHANGE THIS NUMBER TO TEST VARYING SIZES
 	static String nameFile = "RandomStudentNames.txt";
+	static Hashtable ht;
+	static ArrayList arrayList;
+	static DoublyLinkedList dll;
 
 	public static void main(String[] args)
 	{
-		// create the structures that will be tested
-		Hashtable ht = new Hashtable();
-		ArrayList arrayList = new ArrayList();
-		DoublyLinkedList dll = new DoublyLinkedList();
+		if(toGenerate > MAX_STUDENTS)
+			toGenerate = MAX_STUDENTS;
 
-		// create a list of length "toGenerate" of Student classes
-		// this will be used to populate the structures, and "randomly" seek and access records in the structures
+		// create the structures that will be tested
+		ht = new Hashtable();
+		arrayList = new ArrayList();
+		dll = new DoublyLinkedList();
+
+		// Create a list of length "toGenerate" of Student classes
+		// this will be used to populate the structures and seek/access records in the structures
 		Student[] students = GenerateStudents();
 
+		// populate the structures using their built in functions
+		for(int i =0; i < toGenerate; i++)
+		{
+			int key = ht.toHashCode(students[i].getStudentId());
+			ht.insert(key, students[i]);
+			arrayList.addLast(students[i]);
+			dll.addTail(students[i]);
+		}
 
+		double first = 0d, second = 0d, third = 0d, start;
+		// loop through students with equal distribution
+		// Take time of access for each structure to compare
+		for(int i=0;i<toGenerate;i++)
+		{
+			// query Hash
+			start = System.nanoTime();
+			QueryHash(students[i].getStudentId());
+			first += System.nanoTime() - start;
+
+			// query Array List
+			start = System.nanoTime();
+			QueryArrayList(students[i]);
+			second += System.nanoTime() - start;
+
+			// query Doubly linked list
+			start = System.nanoTime();
+			QueryDLL(students[i].getStudentId());
+			third += System.nanoTime() - start;
+		}
+
+		// Print the results
+		System.out.println("PROGRAM OUTPUT ---  TIMING CALCULATIONS ("+ toGenerate + " students)");
+		System.out.println("------\t------\t------\t------\t------");
+		System.out.println("Hashtable lookups took " + first / 1000000 + " milliseconds.");
+		System.out.println("Array List lookups took " + second / 1000000 + " milliseconds.");
+		System.out.println("Doubly Linked List lookups took " + third / 1000000 + " milliseconds.");
+		System.out.println("------\t------\t------\t------\t------");
 	}
 
+	static void QueryHash(String id)
+	{
+		double gpa = ht.fetchStudentInfo(id).getGPA();
+	}
+
+	static void QueryArrayList(Student s)
+	{
+		double gpa = arrayList.get(s).getGPA();
+	}
+
+	static void QueryDLL(String id)
+	{
+		int key = ht.toHashCode(id);
+		Student s = dll.Get(Integer.toString(key));
+		double gpa;
+		if(s != null)
+			gpa = s.getGPA();
+	}
 
 	static Student[] GenerateStudents()
 	{
@@ -76,7 +136,7 @@ public class Main
 
 				// max number of students created, move on
 				if(ct >= toGenerate)
-					continue;
+					break;
 			}
 		}
 		catch (IOException e)

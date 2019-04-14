@@ -41,7 +41,7 @@ public class DoublyLinkedList {
 		}
 	}
 
-	public Student isPresent(String key) {
+	public Student Get(String key) {
 		Node temp = head;
 		while (temp != null) {
 			if (temp.stud.getName() == key)

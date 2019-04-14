@@ -1,7 +1,7 @@
 public class ArrayList {
 
 	private int size = 10; // default size
-	private int n = -1; // keeps track of array elements
+	private int n = 0; // keeps track of array elements
 	private  Student[] arr = new Student[10]; //default arr
 
 	public Student getLast(){ // returns the end of the array
@@ -38,6 +38,7 @@ public class ArrayList {
 				i++;
 			}
 			arr = temp;
+			size *= 2;
 		}
 		if(n == size/4 && size > 10){ // halves the array its a quarter full
 			int i = 0;
@@ -47,12 +48,14 @@ public class ArrayList {
 				i++;
 			}
 			arr = temp;
+			size /= 2;
 		}
 	}
 
 	public void addLast(Student s){ // appends an element to end of the array
 		resize();
-		arr[++n] = s;
+		arr[n] = s;
+		n++;
 	}
 
 	public void addFirst(Student s){ // adds the element to the front of the array
